@@ -1,23 +1,18 @@
 const express = require('express');
 const app = express();
 
-// Middlewares
+//Middlewares
 app.use(express.json());
 
-// GET Request to get the next number from the input 'num'.
-// Endpoint: /api/get-next-num
-// Return the response as { message: , status: }
-
+//GET request to get the next number from the input 'num'
 app.get('/api/get-next-num', (req, res) => {
-    const num = parseInt(req.body.num);
-
-    // Check if num is a valid number
-    if (isNaN(num)) {
+    const num = req.body.num;
+    if (!num || isNaN(num)) {
         res.status(400).json({ message: "Invalid number", status: "failure" });
-    } 
+    }
     else {
         const nextNum = num + 1;
-        res.json({ message: nextNum, status: "success" });
+        res.status(200).json({ message: nextNum, status: "success" });
     }
 });
 
